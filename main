@@ -1,0 +1,62 @@
+import tkinter as tk
+from tkinter import messagebox
+import random
+
+# Function to shuffle all the characters of a string
+def shuffle(string):
+    slist = list(string)
+    random.shuffle(slist)
+    return ''.join(slist)
+
+# Main program starts from here:
+
+a = chr(random.randint(65, 90))
+b = chr(random.randint(65, 90))
+c = chr(random.randint(48, 57))  # Random digit character
+d = chr(random.randint(48, 57))  # Random digit character
+e = chr(random.randint(48, 57))  # Random digit character
+f = chr(random.randint(48, 57))  # Random digit character
+g = chr(random.randint(32, 126)) # Random printable ASCII character (excluding digits)
+h = chr(random.randint(48, 57))  # Random digit character
+
+def generate_password():
+    global x
+    x = a + b + c + d + e + f + g + h
+    x = shuffle(x)
+    password_entry.delete(0, tk.END)  # Clear any previous text in the entry
+    password_entry.insert(0, x)      # Set the generated password as the text in the entry
+
+root = tk.Tk()
+root.title("Password Generator")
+root.geometry("600x400")
+root.resizable(False, False)
+root.iconbitmap("icon.ico")  # Add your own icon file (must be in .ico format)
+
+# Set background color
+root.config(bg="#f0f0f0")
+
+# Font styles
+title_font = ('Helvetica', 24, 'bold')
+text_font = ('Helvetica', 14)
+
+title_label = tk.Label(root, text="Password Generator", font=title_font, bg="#f0f0f0")
+title_label.pack(pady=20)
+
+password_entry = tk.Entry(root, width=30, font=text_font)
+password_entry.pack(pady=10)
+
+button = tk.Button(root, text="Generate Password", command=generate_password, font=text_font)
+button.pack(pady=10)
+
+showp = tk.Label(root, text='Password generator created by Bhupen. This tool will help create a simple 8-digit password randomly.', wraplength=500, font=text_font, bg="#f0f0f0")
+showp.pack(fill='both', expand=True)
+
+# Link to view the source code
+def open_source_code():
+    messagebox.showinfo("Source Code", "You can view the source code on GitHub.")
+
+source_code_link = tk.Label(root, text="See Source Code", font=text_font, fg="blue", cursor="hand2")
+source_code_link.pack(side=tk.RIGHT, padx=20, pady=10)
+source_code_link.bind("<Button-1>", lambda e: open_source_code())
+
+root.mainloop()
